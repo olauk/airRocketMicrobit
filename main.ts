@@ -244,6 +244,44 @@ namespace rakettsensorer {
         }
     }
 
+    // ==================== DEBUG Functions ====================
+
+    /**
+     * Les RAW akselerasjonsverdier for debugging
+     */
+    //% block="les RAW Z akselerasjon"
+    //% group="Avansert"
+    //% weight=45
+    //% advanced=true
+    export function lesRawZAkselerasjon(): number {
+        let raw = readAccelRaw()
+        return raw[2]
+    }
+
+    /**
+     * Les DATA_FORMAT register for debugging
+     */
+    //% block="les DATA FORMAT register"
+    //% group="Avansert"
+    //% weight=44
+    //% advanced=true
+    export function lesDataFormatRegister(): number {
+        if (!initADXL375()) return 0
+        return readReg(adxl375Address, ADXL375_REG_DATA_FORMAT)
+    }
+
+    /**
+     * Les POWER_CTL register for debugging
+     */
+    //% block="les POWER CTL register"
+    //% group="Avansert"
+    //% weight=43
+    //% advanced=true
+    export function lesPowerCtlRegister(): number {
+        if (!initADXL375()) return 0
+        return readReg(adxl375Address, ADXL375_REG_POWER_CTL)
+    }
+
     // ==================== ADXL375 Interrupt Functions (Advanced) ====================
 
     /**
