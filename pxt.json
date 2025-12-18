@@ -1,0 +1,23 @@
+{
+    "name": "rakettsensorer",
+    "version": "1.0.0",
+    "description": "MakeCode extension for Adafruit ADXL375 (high-g accelerometer) and BMP280 (temperature & pressure) sensors for micro:bit rocket projects",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*"
+    },
+    "files": [
+        "README.md",
+        "main.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
+}
