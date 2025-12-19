@@ -247,12 +247,7 @@ namespace rakettsensorer {
             return Math.round(rawToMS2(totalRaw) * 100) / 100
         }
     }
-    //% block="les RAW Z akselerasjon"
-    export function debugRawZ(): number {
-        let raw = readAccelRaw()
-        return raw[2]  // Return raw Z value
-    }
-
+    
     // ==================== DEBUG Functions ====================
 
     /**
