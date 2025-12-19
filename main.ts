@@ -249,6 +249,44 @@ namespace rakettsensorer {
         return raw[2]  // Return raw Z value
     }
 
+    // ==================== DEBUG Functions ====================
+
+    /**
+     * Les RAW akselerasjonsverdier for debugging
+     */
+    //% block="les RAW Z akselerasjon"
+    //% group="Avansert"
+    //% weight=45
+    //% advanced=true
+    export function lesRawZAkselerasjon(): number {
+        let raw = readAccelRaw()
+        return raw[2]
+    }
+
+    /**
+     * Les DATA_FORMAT register for debugging
+     */
+    //% block="les DATA FORMAT register"
+    //% group="Avansert"
+    //% weight=44
+    //% advanced=true
+    export function lesDataFormatRegister(): number {
+        if (!initADXL375()) return 0
+        return readReg(adxl375Address, ADXL375_REG_DATA_FORMAT)
+    }
+
+    /**
+     * Les POWER_CTL register for debugging
+     */
+    //% block="les POWER CTL register"
+    //% group="Avansert"
+    //% weight=43
+    //% advanced=true
+    export function lesPowerCtlRegister(): number {
+        if (!initADXL375()) return 0
+        return readReg(adxl375Address, ADXL375_REG_POWER_CTL)
+    }
+
     // ==================== ADXL375 Interrupt Functions (Advanced) ====================
 
     /**
@@ -494,6 +532,7 @@ namespace rakettsensorer {
     /**
      * Compensate pressure (returns in Pa)
      * Requires t_fine from temperature compensation
+     * Uses 32-bit floating point algorithm suitable for JavaScript
      */
     function compensatePress(adc_P: number): number {
         let dig_P1 = getCalibParam16U(6)
@@ -506,22 +545,23 @@ namespace rakettsensorer {
         let dig_P8 = getCalibParam16S(20)
         let dig_P9 = getCalibParam16S(22)
 
-        let var1 = t_fine - 128000
-        let var2 = var1 * var1 * dig_P6
-        var2 = var2 + ((var1 * dig_P5) << 17)
-        var2 = var2 + (dig_P4 << 35)
-        var1 = ((var1 * var1 * dig_P3) >> 8) + ((var1 * dig_P2) << 12)
-        var1 = ((1 << 47) + var1) * dig_P1 >> 33
+        // 32-bit floating point compensation algorithm
+        let var1 = t_fine / 2.0 - 64000.0
+        let var2 = var1 * var1 * dig_P6 / 32768.0
+        var2 = var2 + var1 * dig_P5 * 2.0
+        var2 = var2 / 4.0 + dig_P4 * 65536.0
+        var1 = (dig_P3 * var1 * var1 / 524288.0 + dig_P2 * var1) / 524288.0
+        var1 = (1.0 + var1 / 32768.0) * dig_P1
 
         if (var1 == 0) return 0
 
-        let p = 1048576 - adc_P
-        p = (((p << 31) - var2) * 3125) / var1
-        var1 = (dig_P9 * (p >> 13) * (p >> 13)) >> 25
-        var2 = (dig_P8 * p) >> 19
-        p = ((p + var1 + var2) >> 8) + (dig_P7 << 4)
+        let p = 1048576.0 - adc_P
+        p = (p - var2 / 4096.0) * 6250.0 / var1
+        var1 = dig_P9 * p * p / 2147483648.0
+        var2 = p * dig_P8 / 32768.0
+        p = p + (var1 + var2 + dig_P7) / 16.0
 
-        return p >> 8
+        return p
     }
 
     /**
