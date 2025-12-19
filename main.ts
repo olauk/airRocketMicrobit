@@ -674,6 +674,33 @@ namespace rakettsensorer {
         return Math.round(altitude * 10) / 10
     }
 
+    // ==================== I2C Pin Rerouting ====================
+    // Original code by Bill Siever (https://github.com/bsiever/microbit-pxt-i2cpins)
+    // Integrated with permission under MIT license
+
+    /**
+     * Sett hvilke pinner som skal brukes for I2C kommunikasjon
+     *
+     * VIKTIG ADVARSEL for micro:bit v1:
+     * micro:bit v1 har kun én I2C-port. Å endre pinnene vil hindre
+     * akselerometer/kompass fra å fungere!
+     *
+     * @param sdaPin Pin for I2C data (SDA)
+     * @param sclPin Pin for I2C klokke (SCL)
+     */
+    //% blockId="setI2CPins"
+    //% block="sett I2C data til $sdaPin og klokke til $sclPin"
+    //% shim=i2crr::setI2CPins
+    //% sdaPin.defl=DigitalPin.P1 sclPin.defl=DigitalPin.P2
+    //% group="Avansert"
+    //% weight=35
+    //% advanced=true
+    export function settI2CPinner(sdaPin: DigitalPin, sclPin: DigitalPin): void {
+        // Shim function - implementation in i2crr.cpp
+        // Per https://github.com/microsoft/pxt-microbit/issues/4292
+        return
+    }
+
     // ==================== Enums ====================
 
     export enum AkselerasjonEnhet {

@@ -12,6 +12,7 @@
     "rakettsensorer.lesTemperatur|block": "les temperatur i %enhet",
     "rakettsensorer.lesLufttrykk|block": "les lufttrykk i %enhet",
     "rakettsensorer.beregnHoyde|block": "beregn høyde (meter) havnivåtrykk %seaLevelPa Pa",
+    "rakettsensorer.settI2CPinner|block": "sett I2C data til %sdaPin og klokke til %sclPin",
     "rakettsensorer.AkselerasjonEnhet.G|block": "g",
     "rakettsensorer.AkselerasjonEnhet.MS2|block": "m/s²",
     "rakettsensorer.TemperaturEnhet.Celsius|block": "°C",
