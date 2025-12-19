@@ -39,7 +39,8 @@ namespace rakettsensorer {
     const ADXL375_REG_DATAZ0 = 0x36         // Z-axis data LSB
 
     // ADXL375 Scale factor: 49 mg/LSB (±200g range)
-    const ADXL375_MG_LSB = 49.0
+    // const ADXL375_MG_LSB = 49.0
+    const ADXL375_MG_LSB = 28.57  // Basert på faktiske målinger
     const ADXL375_G_TO_MS2 = 9.80665
 
     // ==================== BMP280 Constants ====================
