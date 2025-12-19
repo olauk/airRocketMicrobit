@@ -282,6 +282,51 @@ namespace rakettsensorer {
         return readReg(adxl375Address, ADXL375_REG_POWER_CTL)
     }
 
+    /**
+     * Les X-akse offset register
+     */
+    //% block="les X offset register"
+    //% group="Avansert"
+    //% weight=42
+    //% advanced=true
+    export function lesXOffsetRegister(): number {
+        if (!initADXL375()) return 0
+        let val = readReg(adxl375Address, ADXL375_REG_OFSX)
+        // Convert to signed 8-bit
+        if (val > 127) return val - 256
+        return val
+    }
+
+    /**
+     * Les Y-akse offset register
+     */
+    //% block="les Y offset register"
+    //% group="Avansert"
+    //% weight=41
+    //% advanced=true
+    export function lesYOffsetRegister(): number {
+        if (!initADXL375()) return 0
+        let val = readReg(adxl375Address, ADXL375_REG_OFSY)
+        // Convert to signed 8-bit
+        if (val > 127) return val - 256
+        return val
+    }
+
+    /**
+     * Les Z-akse offset register
+     */
+    //% block="les Z offset register"
+    //% group="Avansert"
+    //% weight=40
+    //% advanced=true
+    export function lesZOffsetRegister(): number {
+        if (!initADXL375()) return 0
+        let val = readReg(adxl375Address, ADXL375_REG_OFSZ)
+        // Convert to signed 8-bit
+        if (val > 127) return val - 256
+        return val
+    }
+
     // ==================== ADXL375 Interrupt Functions (Advanced) ====================
 
     /**
