@@ -15,6 +15,9 @@ namespace rakettsensorer {
 
     // ADXL375 Registers
     const ADXL375_REG_DEVID = 0x00          // Device ID (should be 0xE5)
+    const ADXL375_REG_OFSX = 0x1E           // X-axis offset
+    const ADXL375_REG_OFSY = 0x1F           // Y-axis offset
+    const ADXL375_REG_OFSZ = 0x20           // Z-axis offset
     const ADXL375_REG_THRESH_ACT = 0x24     // Activity threshold
     const ADXL375_REG_THRESH_INACT = 0x25   // Inactivity threshold
     const ADXL375_REG_TIME_INACT = 0x26     // Inactivity time
