@@ -163,6 +163,34 @@ basic.forever(function () {
 })
 ```
 
+## Avansert: I2C Pin Rerouting / Advanced: I2C Pin Rerouting
+
+**Tilleggsfunksjonalitet fra [Bill Siever](https://github.com/bsiever/microbit-pxt-i2cpins)**
+
+Denne extensionen inkluderer funksjonalitet for å endre hvilke pinner som brukes for I2C-kommunikasjon. Dette kan være nyttig hvis du trenger å bruke andre pinner enn standard Pin 19 (SCL) og Pin 20 (SDA).
+
+This extension includes functionality to change which pins are used for I2C communication. This can be useful if you need to use pins other than the default Pin 19 (SCL) and Pin 20 (SDA).
+
+### ⚠️ VIKTIG ADVARSEL / IMPORTANT WARNING
+
+**micro:bit V1:** Micro:bit v1 har kun én I2C-port. Å endre pinnene vil hindre det innebygde akselerometeret/kompasset fra å fungere!
+
+**micro:bit V1:** Micro:bit v1 only has one I2C port. Changing the pins will prevent the built-in accelerometer/compass from working!
+
+### Bruk / Usage
+
+```typescript
+// Sett I2C til å bruke Pin 1 (data) og Pin 2 (klokke)
+// Set I2C to use Pin 1 (data) and Pin 2 (clock)
+rakettsensorer.settI2CPinner(DigitalPin.P1, DigitalPin.P2)
+
+// Nå kan du bruke ADXL375 og BMP280 på de nye pinnene
+// Now you can use ADXL375 and BMP280 on the new pins
+let akselerasjon = rakettsensorer.lesTotalAkselerasjon(AkselerasjonEnhet.G)
+```
+
+**Kreditt / Credit:** Denne funksjonaliteten er basert på [microbit-pxt-i2cpins](https://github.com/bsiever/microbit-pxt-i2cpins) av Bill Siever, integrert med tillatelse under MIT-lisens.
+
 ## Tekniske detaljer / Technical Details
 
 ### ADXL375
@@ -198,6 +226,9 @@ MIT
 ### BMP280
 - [BMP280 Datasheet](https://cdn-shop.adafruit.com/datasheets/BST-BMP280-DS001-11.pdf)
 - [Adafruit BMP280 Library](https://github.com/adafruit/Adafruit_BMP280_Library)
+
+### I2C Pin Rerouting
+- [microbit-pxt-i2cpins](https://github.com/bsiever/microbit-pxt-i2cpins) by Bill Siever
 
 ---
 

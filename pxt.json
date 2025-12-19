@@ -10,7 +10,8 @@
     },
     "files": [
         "README.md",
-        "main.ts"
+        "main.ts",
+        "i2crr.cpp"
     ],
     "testFiles": [
         "test.ts"
